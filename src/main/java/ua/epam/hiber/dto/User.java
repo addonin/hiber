@@ -9,14 +9,31 @@ import java.util.Date;
 @Entity
 @Table(name = "USER")
 public class User {
+
     @Id
+    //@EmbeddedId
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @Basic(optional = false)
     private String name;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET")),
+            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY"))
+    })
+    private Address homeAddress;
+
+    @Embedded
+    private Address officeAddress;
+
     @Temporal(TemporalType.DATE)
     private Date joinDate;
+
     @Transient
     private String transcient;
+
     @Lob
     private String description;
 
@@ -34,6 +51,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address address) {
+        this.homeAddress = address;
+    }
+
+    public Address getOfficeAddress() {
+        return officeAddress;
+    }
+
+    public void setOfficeAddress(Address officeAddress) {
+        this.officeAddress = officeAddress;
     }
 
     public Date getJoinDate() {

@@ -1,6 +1,7 @@
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import ua.epam.hiber.dto.Address;
 import ua.epam.hiber.dto.User;
 
 import java.util.Date;
@@ -25,11 +26,21 @@ public class Main {
         }*/
 
         User user = new User();
-        user.setId(2);
         user.setDescription("desc");
         user.setJoinDate(new Date());
         user.setTranscient("transient");
         user.setName("name2");
+
+        Address address = new Address();
+        address.setCity("homecity");
+        address.setStreet("homestreet");
+
+        Address address1 = new Address();
+        address1.setCity("officecity");
+        address1.setStreet("officestreet");
+
+        user.setHomeAddress(address);
+        user.setOfficeAddress(address1);
 
         Configuration configuration = new Configuration();
         SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
@@ -37,5 +48,15 @@ public class Main {
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
+        session.close();
+
+        /*user = null;
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        user = (User) session.get(User.class, 2);
+        session.getTransaction().commit();
+        session.close();
+        System.out.println("User : " + user.getName());*/
+
     }
 }
