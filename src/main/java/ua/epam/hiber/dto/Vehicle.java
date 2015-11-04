@@ -1,6 +1,8 @@
 package ua.epam.hiber.dto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Dmytro_Adonin on 11/4/2015.
@@ -15,8 +17,11 @@ public class Vehicle {
 
     private String type;
 
-    @ManyToOne
-    private User user;
+    /*@ManyToOne
+    private User user;*/
+
+    @ManyToMany(mappedBy = "vehicles")
+    private Collection<User> users = new ArrayList<User>();
 
     public int getId() {
         return id;
@@ -34,11 +39,19 @@ public class Vehicle {
         this.type = type;
     }
 
-    public User getUser() {
+    /*public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }*/
+
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
     }
 }

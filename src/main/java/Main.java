@@ -34,11 +34,13 @@ public class Main {
 
         Vehicle vehicle = new Vehicle();
         vehicle.setType("car");
-        vehicle.setUser(user);
+        //vehicle.setUser(user);
+        vehicle.getUsers().add(user);
 
         Vehicle vehicle1 = new Vehicle();
         vehicle1.setType("bike");
-        vehicle1.setUser(user);
+        //vehicle1.setUser(user);
+        vehicle1.getUsers().add(user);
 
         Address address = new Address();
         address.setCity("homecity");
