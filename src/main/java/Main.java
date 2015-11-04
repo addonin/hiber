@@ -1,9 +1,7 @@
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import ua.epam.hiber.dto.Address;
-import ua.epam.hiber.dto.User;
-import ua.epam.hiber.dto.Vehicle;
+import ua.epam.hiber.dto.*;
 
 import java.util.Date;
 
@@ -42,6 +40,12 @@ public class Main {
         //vehicle1.setUser(user);
         //vehicle1.getUsers().add(user);
 
+        TwoWheeler twoWheeler = new TwoWheeler();
+        twoWheeler.setSteeringHandle("handle");
+
+        FourWheel fourWheel = new FourWheel();
+        fourWheel.setSteeringWheel("wheel");
+
         Address address = new Address();
         address.setCity("homecity");
         address.setStreet("homestreet");
@@ -50,18 +54,20 @@ public class Main {
         address1.setCity("officecity");
         address1.setStreet("officestreet");
 
-        user.getAddresses().add(address);
+        /*user.getAddresses().add(address);
         user.getAddresses().add(address1);
         user.getVehicles().add(vehicle);
-        user.getVehicles().add(vehicle1);
+        user.getVehicles().add(vehicle1);*/
 
         Configuration configuration = new Configuration();
         SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        /*session.save(vehicle1);
-        session.save(vehicle);*/
-        session.persist(user);//session.save(user);
+        session.save(vehicle);
+        session.save(twoWheeler);
+        session.save(fourWheel);
+        /*session.save(vehicle1);*/
+        //session.persist(user);//session.save(user);
         //System.out.println(((Vehicle) session.get(Vehicle.class, 20)).getUser());
         session.getTransaction().commit();
         session.close();

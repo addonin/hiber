@@ -18,5 +18,7 @@
 
         <mapping class="ua.epam.hiber.dto.User"/>
         <mapping class="ua.epam.hiber.dto.Vehicle"/>
+        <mapping class="ua.epam.hiber.dto.TwoWheeler"/>
+        <mapping class="ua.epam.hiber.dto.FourWheel"/>
     </session-factory>
 </hibernate-configuration>
