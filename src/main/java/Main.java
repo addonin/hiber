@@ -3,6 +3,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import ua.epam.hiber.dto.Address;
 import ua.epam.hiber.dto.User;
+import ua.epam.hiber.dto.Vehicle;
 
 import java.util.Date;
 
@@ -31,6 +32,14 @@ public class Main {
         user.setTranscient("transient");
         user.setName("name2");
 
+        Vehicle vehicle = new Vehicle();
+        vehicle.setType("car");
+        vehicle.setUser(user);
+
+        Vehicle vehicle1 = new Vehicle();
+        vehicle1.setType("bike");
+        vehicle1.setUser(user);
+
         Address address = new Address();
         address.setCity("homecity");
         address.setStreet("homestreet");
@@ -39,14 +48,17 @@ public class Main {
         address1.setCity("officecity");
         address1.setStreet("officestreet");
 
-
         user.getAddresses().add(address);
         user.getAddresses().add(address1);
+        user.getVehicles().add(vehicle);
+        user.getVehicles().add(vehicle1);
 
         Configuration configuration = new Configuration();
         SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        session.save(vehicle1);
+        session.save(vehicle);
         session.save(user);
         session.getTransaction().commit();
         session.close();
@@ -59,10 +71,11 @@ public class Main {
         session.close();
         System.out.println("User : " + user.getName());*/
 
+        /* Lazy/Eager example
         user = null;
         session = sessionFactory.openSession();
         user = (User) session.get(User.class, 6);
         session.close();
-        System.out.println(user.getAddresses().size());
+        System.out.println(user.getAddresses().size());*/
     }
 }

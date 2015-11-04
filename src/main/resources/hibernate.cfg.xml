@@ -17,5 +17,6 @@
         <property name="show_sql">true</property>
 
         <mapping class="ua.epam.hiber.dto.User"/>
+        <mapping class="ua.epam.hiber.dto.Vehicle"/>
     </session-factory>
 </hibernate-configuration>

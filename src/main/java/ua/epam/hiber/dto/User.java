@@ -32,12 +32,21 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
-    /*@GenericGenerator(name = "ADDRESS_ID_GEN", strategy = "hilo")
+    /*hibernate-specific
+    @GenericGenerator(name = "ADDRESS_ID_GEN", strategy = "hilo")
     @CollectionId(columns = @Column(name = "ADDRESS_ID"),
                   generator = "ADDRESS_ID_GEN",
                   type = @Type(type = "long"))*/
     //private Set<Address> addresses = new HashSet<Address>();
     private Collection<Address> addresses = new ArrayList<Address>();
+
+    /*@OneToOne
+    @JoinColumn(name = "VEHICLE_ID")*/
+    @OneToMany
+    @JoinTable(name = "USER_VEHICLES",
+               joinColumns = @JoinColumn(name = "USER_ID"),
+               inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID"))
+    private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 
     @Temporal(TemporalType.DATE)
     private Date joinDate;
@@ -95,6 +104,22 @@ public class User {
     public void setAddresses(Collection<Address> addresses) {
         this.addresses = addresses;
     }
+
+    public Collection<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Collection<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    /*public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }*/
 
     public Date getJoinDate() {
         return joinDate;
