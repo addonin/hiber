@@ -2,6 +2,8 @@ package ua.epam.hiber.dto;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Dmytro_Adonin on 11/3/2015.
@@ -18,7 +20,7 @@ public class User {
     @Basic(optional = false)
     private String name;
 
-    @Embedded
+    /*@Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET")),
             @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY"))
@@ -26,7 +28,10 @@ public class User {
     private Address homeAddress;
 
     @Embedded
-    private Address officeAddress;
+    private Address officeAddress;*/
+
+    @ElementCollection
+    private Set<Address> addresses = new HashSet<Address>();
 
     @Temporal(TemporalType.DATE)
     private Date joinDate;
@@ -53,7 +58,7 @@ public class User {
         this.name = name;
     }
 
-    public Address getHomeAddress() {
+    /*public Address getHomeAddress() {
         return homeAddress;
     }
 
@@ -67,6 +72,14 @@ public class User {
 
     public void setOfficeAddress(Address officeAddress) {
         this.officeAddress = officeAddress;
+    }*/
+
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
     public Date getJoinDate() {

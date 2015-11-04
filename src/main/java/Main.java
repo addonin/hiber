@@ -39,8 +39,9 @@ public class Main {
         address1.setCity("officecity");
         address1.setStreet("officestreet");
 
-        user.setHomeAddress(address);
-        user.setOfficeAddress(address1);
+
+        user.getAddresses().add(address);
+        user.getAddresses().add(address1);
 
         Configuration configuration = new Configuration();
         SessionFactory sessionFactory = configuration.configure().buildSessionFactory();
