@@ -46,7 +46,7 @@ public class User {
     /*@JoinTable(name = "USER_VEHICLES",
                joinColumns = @JoinColumn(name = "USER_ID"),
                inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID"))*/
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 
     @Temporal(TemporalType.DATE)
