@@ -1,9 +1,11 @@
 package ua.epam.hiber.dto;
 
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Dmytro_Adonin on 11/3/2015.
@@ -31,7 +33,13 @@ public class User {
     private Address officeAddress;*/
 
     @ElementCollection
-    private Set<Address> addresses = new HashSet<Address>();
+    @JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
+    @GenericGenerator(name = "ADDRESS_ID_GEN", strategy = "hilo")
+    @CollectionId(columns = @Column(name = "ADDRESS_ID"),
+                  generator = "ADDRESS_ID_GEN",
+                  type = @Type(type = "long"))
+    //private Set<Address> addresses = new HashSet<Address>();
+    private Collection<Address> addresses = new ArrayList<Address>();
 
     @Temporal(TemporalType.DATE)
     private Date joinDate;
@@ -74,11 +82,19 @@ public class User {
         this.officeAddress = officeAddress;
     }*/
 
-    public Set<Address> getAddresses() {
+    /*public Set<Address> getAddresses() {
         return addresses;
     }
 
     public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }*/
+
+    public Collection<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(Collection<Address> addresses) {
         this.addresses = addresses;
     }
 
