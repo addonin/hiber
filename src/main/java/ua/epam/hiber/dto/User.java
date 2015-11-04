@@ -42,10 +42,10 @@ public class User {
 
     /*@OneToOne
     @JoinColumn(name = "VEHICLE_ID")*/
-    @OneToMany
-    @JoinTable(name = "USER_VEHICLES",
+    @OneToMany(mappedBy = "user")
+    /*@JoinTable(name = "USER_VEHICLES",
                joinColumns = @JoinColumn(name = "USER_ID"),
-               inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID"))
+               inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID"))*/
     private Collection<Vehicle> vehicles = new ArrayList<Vehicle>();
 
     @Temporal(TemporalType.DATE)
