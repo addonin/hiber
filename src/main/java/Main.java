@@ -41,9 +41,11 @@ public class Main {
         //vehicle1.getUsers().add(user);
 
         TwoWheeler twoWheeler = new TwoWheeler();
+        twoWheeler.setType("bike");
         twoWheeler.setSteeringHandle("handle");
 
         FourWheel fourWheel = new FourWheel();
+        fourWheel.setType("car");
         fourWheel.setSteeringWheel("wheel");
 
         Address address = new Address();
