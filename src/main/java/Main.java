@@ -59,5 +59,10 @@ public class Main {
         session.close();
         System.out.println("User : " + user.getName());*/
 
+        user = null;
+        session = sessionFactory.openSession();
+        user = (User) session.get(User.class, 6);
+        session.close();
+        System.out.println(user.getAddresses().size());
     }
 }
