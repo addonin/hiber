@@ -35,12 +35,12 @@ public class Main {
         Vehicle vehicle = new Vehicle();
         vehicle.setType("car");
         //vehicle.setUser(user);
-        vehicle.getUsers().add(user);
+        //vehicle.getUsers().add(user);
 
         Vehicle vehicle1 = new Vehicle();
         vehicle1.setType("bike");
         //vehicle1.setUser(user);
-        vehicle1.getUsers().add(user);
+        //vehicle1.getUsers().add(user);
 
         Address address = new Address();
         address.setCity("homecity");
@@ -62,6 +62,7 @@ public class Main {
         session.save(vehicle1);
         session.save(vehicle);
         session.save(user);
+        System.out.println(((Vehicle) session.get(Vehicle.class, 20)).getUser());
         session.getTransaction().commit();
         session.close();
 

@@ -1,8 +1,9 @@
 package ua.epam.hiber.dto;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by Dmytro_Adonin on 11/4/2015.
@@ -17,11 +18,12 @@ public class Vehicle {
 
     private String type;
 
-    /*@ManyToOne
-    private User user;*/
+    @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE) //Hibernate-specific
+    private User user;
 
-    @ManyToMany(mappedBy = "vehicles")
-    private Collection<User> users = new ArrayList<User>();
+    /*@ManyToMany(mappedBy = "vehicles")
+    private Collection<User> users = new ArrayList<User>();*/
 
     public int getId() {
         return id;
@@ -47,11 +49,19 @@ public class Vehicle {
         this.user = user;
     }*/
 
-    public Collection<User> getUsers() {
+    /*public Collection<User> getUsers() {
         return users;
     }
 
     public void setUsers(Collection<User> users) {
         this.users = users;
+    }*/
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
