@@ -16,12 +16,18 @@ public class Main {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("from UserDetails where id > 1");
-        List list = query.list();
+        //Query query = session.createQuery("from UserDetails where id > 1");
+        Query query = session.createQuery("select userName from UserDetails");
+        query.setFirstResult(2);
+        query.setMaxResults(10);
+        List<String> list = query.list();
 
         session.getTransaction().commit();
         session.close();
 
-        System.out.println("List length: " + list.size());
+        //System.out.println("List length: " + list.size());
+        for (String name : list) {
+            System.out.println("Name : " + name);
+        }
     }
 }
