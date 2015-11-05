@@ -9,6 +9,7 @@ import javax.persistence.Id;
  * Created by Dmytro_Adonin on 11/5/2015.
  */
 @Entity
+@org.hibernate.annotations.Entity(selectBeforeUpdate = true)
 public class UserDetails {
 
     @Id

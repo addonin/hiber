@@ -26,6 +26,12 @@ public class Main {
         session.close();
 
         //in case of updating object after session was closed no changes saved to DB
-        user.setUserName("User3");
+        //user.setUserName("User3");
+
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(user);
+        session.getTransaction().commit();
+        session.close();
     }
 }
