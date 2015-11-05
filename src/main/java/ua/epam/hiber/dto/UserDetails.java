@@ -1,14 +1,18 @@
 package ua.epam.hiber.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Dmytro_Adonin on 11/5/2015.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "userName.byId", query = "select userName from UserDetails where id = :id")
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "userDetails.byUserName", query = "SELECT ID FROM userdetails WHERE userName = ?",
+                resultClass = UserDetails.class)
+})
 @org.hibernate.annotations.Entity(selectBeforeUpdate = true)
 public class UserDetails {
 

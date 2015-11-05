@@ -28,6 +28,10 @@ public class Main {
         query.setString("userName", "User3");
         List<String> list = query.list();
 
+        query = session.getNamedQuery("userName.byId");
+        query.setInteger("id", 1);
+        list = query.list();
+
         session.getTransaction().commit();
         session.close();
 
