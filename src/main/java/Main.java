@@ -17,9 +17,15 @@ public class Main {
         session.beginTransaction();
 
         //Query query = session.createQuery("from UserDetails where id > 1");
-        Query query = session.createQuery("select userName from UserDetails");
-        query.setFirstResult(2);
-        query.setMaxResults(10);
+        //Query query = session.createQuery("select userName from UserDetails");
+        //query.setFirstResult(2);
+        //query.setMaxResults(10);
+        Query unusedQuery = session.createQuery("from UserDetails where id > ?");
+        unusedQuery.setInteger(0, 1);
+
+        Query query = session.createQuery("select userName from UserDetails where id > :id and userName = :userName");
+        query.setInteger("id", 1);
+        query.setString("userName", "User3");
         List<String> list = query.list();
 
         session.getTransaction().commit();
