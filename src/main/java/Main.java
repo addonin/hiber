@@ -14,22 +14,18 @@ public class Main {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        for (int i = 0; i < 10; i++) {
-            UserDetails user = new UserDetails();
-            user.setUserName("User" + i);
-            session.save(user);
-        }
+        UserDetails user = new UserDetails();
+        user.setUserName("User");
+        session.save(user);
 
-        UserDetails userDetails = (UserDetails) session.get(UserDetails.class, 3);
-        System.out.println("User: " + userDetails.getUserName());
-        userDetails.setUserName("updated");
-        session.update(userDetails);
-        userDetails = (UserDetails) session.get(UserDetails.class, 3);
-        session.delete(userDetails);
+        user.setUserName("User1");
+        //in case 2 updates during the session 1st update intelligently ignored
+        user.setUserName("User2");
 
         session.getTransaction().commit();
         session.close();
 
-        System.out.println("User: " + userDetails.getUserName());
+        //in case of updating object after session was closed no changes saved to DB
+        user.setUserName("User3");
     }
 }
