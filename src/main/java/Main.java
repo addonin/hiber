@@ -3,7 +3,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import ua.epam.hiber.dto.UserDetails;
 
 import java.util.List;
@@ -37,15 +39,24 @@ public class Main {
 
         Criteria criteria = session.createCriteria(UserDetails.class);
         //fluent interface equals to AND, so the next example for OR
-        criteria.add(Restrictions.or(Restrictions.eq("id", 1), Restrictions.gt("id", 3)));
-        List<UserDetails> list = criteria.list();
+        //criteria.add(Restrictions.or(Restrictions.eq("id", 1), Restrictions.gt("id", 3)));
+
+        UserDetails userDetails = new UserDetails();
+        userDetails.setId(1); // PK's & null's are ignored
+        userDetails.setUserName("User%");
+        Example example = Example.create(userDetails).enableLike().excludeProperty("id");
+
+        criteria.add(example)
+                .setProjection(Projections.property("userName"))
+                .addOrder(Order.desc("userName"));
+        List<String> list = criteria.list();
 
         session.getTransaction().commit();
         session.close();
 
         //System.out.println("List length: " + list.size());
-        for (UserDetails user : list) {
-            System.out.println("Name : " + user.getUserName());
+        for (String user : list) {
+            System.out.println("Name : " + user);
         }
     }
 }
