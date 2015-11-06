@@ -16,6 +16,10 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
 
+        <property name="cache.use_second_level_cache">true</property>
+        <property name="cache.use_query_cache">true</property>
+        <property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+
         <mapping class="ua.epam.hiber.dto.User"/>
         <mapping class="ua.epam.hiber.dto.Vehicle"/>
         <mapping class="ua.epam.hiber.dto.TwoWheeler"/>

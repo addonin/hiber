@@ -1,11 +1,17 @@
 package ua.epam.hiber.dto;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
+
 
 /**
  * Created by Dmytro_Adonin on 11/5/2015.
  */
 @Entity
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @NamedQueries({
         @NamedQuery(name = "userName.byId", query = "select userName from UserDetails where id = :id")
 })
