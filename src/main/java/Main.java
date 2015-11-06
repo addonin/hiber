@@ -51,6 +51,10 @@ public class Main {
                 .addOrder(Order.desc("userName"));
         List<String> list = criteria.list();
 
+        Query query = session.createQuery("from UserDetails");
+        query.setCacheable(true);
+        query.list();
+
         session.getTransaction().commit();
         session.close();
 
@@ -58,5 +62,14 @@ public class Main {
         for (String user : list) {
             System.out.println("Name : " + user);
         }
+
+        Session session1 = sessionFactory.openSession();
+        session1.beginTransaction();
+        Query query1 = session1.createQuery("from UserDetails");
+        //caching query, the same as above, so that query-cache ask 2-level cache for result, no new query
+        query1.setCacheable(true);
+        query1.list();
+        session1.getTransaction().commit();
+        session1.close();
     }
 }
